@@ -17,18 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        button1.setOnClickListener {
-
-            if (name1.text.toString() == "good gril"){
-                inaki.setImageResource(R.drawable.inakiiii)
-            } else if (name1.text.toString() == "chair gril"){
-                inaki.setImageResource(R.drawable.inakiii)
-            } else if (name1.text.toString() == "bush gril"){
-                inaki.setImageResource(R.drawable.inakii)
-            } else if (name1.text.toString() == "sitting gril"){
-                inaki.setImageResource(R.drawable.inakiiiii)
-            }
-        }
+       
     }
 
 
