@@ -40,9 +40,25 @@ class EredivisiePresenter : AppCompatActivity() {
 
 
     fun updateRecyc(matchList: MatchList){
-        match_list.layoutManager = LinearLayoutManager(this)
-        match_list.adapter = MatchAdapter(matchList, this)
+
+        val manager = LinearLayoutManager(this)
+
+        match_list.layoutManager = manager
+
+        val matchAdapter = MatchAdapter(matchList, this)
+        matchList.matches
+
+        match_list.adapter = matchAdapter
+
+
+        manager.scrollToPosition(15)
     }
+
+
+    fun findMatchDate(matchList: MatchList){
+        val matchIte = matchList
+    }
+
 
 
 }

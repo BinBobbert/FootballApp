@@ -26,4 +26,7 @@ interface FootballApi{
 
     @GET("matches/{id}")
     suspend fun getMatchById(@Path("id") id:Int): Matches
+
+    @GET("competitions/2003/matches")
+    suspend fun getAllEre(): MatchList
 }
