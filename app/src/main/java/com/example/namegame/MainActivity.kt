@@ -3,12 +3,12 @@ package com.example.namegame
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
-import com.google.android.material.snackbar.Snackbar
+
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import com.example.namegame.eredivisie.EredivisieView
+
+import com.example.namegame.eredivisie.EredivisiePresenter
+import com.example.namegame.eredivisie.PLPresenter
+
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -21,7 +21,13 @@ class MainActivity : AppCompatActivity()  {
         setSupportActionBar(toolbar)
 
         eredivisie.setOnClickListener {
-            val intent = Intent(this, EredivisieView::class.java)
+            val intent = Intent(this, EredivisiePresenter::class.java)
+            startActivity(intent)
+
+        }
+
+        premier_league.setOnClickListener {
+            val intent = Intent(this, PLPresenter::class.java)
             startActivity(intent)
 
         }

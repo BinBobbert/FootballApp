@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 
-class EredivisieView (private val api: FootballApi, val presenter: EredivisiePresenter): ViewModel(){
+class PLView (private val api: FootballApi, val presenter: PLPresenter): ViewModel(){
 
 
 
@@ -22,12 +22,12 @@ class EredivisieView (private val api: FootballApi, val presenter: EredivisiePre
 
     fun fetchMatches(date: String) {
 
-        viewModelScope.launch(Dispatchers.Main){
+        viewModelScope.launch{
 
             try {
 
 
-                val matchList = api.getEreMatches(date, "2020-05-20")
+                val matchList = api.getPLMatches(date, "2020-05-20")
                 presenter.updateRecyc(matchList)
 
                 Log.d("Chris", "goddammit why no work")

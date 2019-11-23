@@ -11,7 +11,7 @@ import com.example.namegame.data.matchData.MatchList
 import kotlinx.android.synthetic.main.activity_eredivisie.*
 import java.time.LocalDate
 
-class EredivisiePresenter : AppCompatActivity() {
+class PLPresenter : AppCompatActivity() {
 
     //var matchList: MatchList? = null
 
@@ -20,7 +20,7 @@ class EredivisiePresenter : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_eredivisie)
 
-        val eView = EredivisieView(footballAPI, this)
+        val eView = PLView(footballAPI, this)
         val dateToday = LocalDate.now().toString()
 
         Log.d("Date", dateToday)
