@@ -13,5 +13,5 @@ data class MatchList(
     @Json(name = "filters")
     val filters: Filters?,
     @Json(name = "matches")
-    val matches: List<Matches>
+    val matches: MutableList<Matches>
 )

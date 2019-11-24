@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.namegame.NothaWay.ApiFactory.footballAPI
 import com.example.namegame.R
 import com.example.namegame.data.matchData.MatchList
+import com.example.namegame.data.matchData.Matches
 import kotlinx.android.synthetic.main.activity_eredivisie.*
 import java.time.LocalDate
 
 class EredivisiePresenter : AppCompatActivity() {
 
-    //var matchList: MatchList? = null
+    var matchList: MatchList? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +22,7 @@ class EredivisiePresenter : AppCompatActivity() {
         setContentView(R.layout.activity_eredivisie)
 
         val eView = EredivisieView(footballAPI, this)
-        val dateToday = LocalDate.now().toString()
-
-        Log.d("Date", dateToday)
+        val dateToday = LocalDate.now()
 
 
         eView.fetchMatches(dateToday)
@@ -41,23 +40,48 @@ class EredivisiePresenter : AppCompatActivity() {
 
     fun updateRecyc(matchList: MatchList){
 
+        this.matchList = matchList
+
         val manager = LinearLayoutManager(this)
 
         match_list.layoutManager = manager
 
         val matchAdapter = MatchAdapter(matchList, this)
-        matchList.matches
 
         match_list.adapter = matchAdapter
 
 
-        manager.scrollToPosition(15)
-    }
+        Log.d("Chris", match_list.adapter!!.itemCount.toString())
+        manager.scrollToPosition(match_list.adapter!!.itemCount-1)
 
 
-    fun findMatchDate(matchList: MatchList){
-        val matchIte = matchList
+
+
+
     }
+
+    fun addMatches(matchList: MatchList){
+        //current matches
+        //var currentMatchlist: MutableList<Matches> = this.matchList!!.matches
+
+        //matches to come
+        val matchesToBe: MutableList<Matches> = matchList.matches
+
+        //get the index of where we need to add the upcoming matches
+        val index = match_list.adapter!!.itemCount
+
+        //add the upcoming matches to the matchList used by our adapter
+        this.matchList!!.matches.addAll(index, matchesToBe)
+
+
+        //Notify the adapter
+        match_list.adapter!!.notifyItemRangeInserted(index, match_list.adapter!!.itemCount)
+
+
+
+
+    }
+
 
 
 

@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.time.LocalDate
 
 
 class EredivisieView (private val api: FootballApi, val presenter: EredivisiePresenter): ViewModel(){
@@ -20,18 +21,26 @@ class EredivisieView (private val api: FootballApi, val presenter: EredivisiePre
 
 
 
-    fun fetchMatches(date: String) {
+    fun fetchMatches(date: LocalDate) {
 
         viewModelScope.launch(Dispatchers.Main){
 
             try {
 
-                val matchList = api.getAllEre()
-                //val matchList = api.getEreMatches(date, "2020-05-20")
+                Log.d("Date", date.toString())
+
+                var matchList = api.getEreMatches("2019-08-02", date.toString())
+
                 presenter.updateRecyc(matchList)
 
-                Log.d("Chris", "goddammit why no work")
-                Log.d("CHRIS", matchList.toString())
+
+                Log.d("Date", date.plusDays(1).toString())
+
+                matchList = api.getEreMatches(date.plusDays(1).toString(), "2020-05-20")
+
+
+
+                presenter.addMatches(matchList)
 
 
 
@@ -41,7 +50,6 @@ class EredivisieView (private val api: FootballApi, val presenter: EredivisiePre
             } catch(e: Exception){
                 Log.d("Error", e.toString())
             }
-
 
         }
 
