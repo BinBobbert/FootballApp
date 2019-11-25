@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.namegame.R
 import com.example.namegame.data.matchData.MatchList
-import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.android.synthetic.main.row_layout.view.*
 import kotlinx.android.synthetic.main.row_layout.view.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -17,10 +17,12 @@ import java.util.*
 class MatchAdapter(val matchList: MatchList?, val context: Context): RecyclerView.Adapter<ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row, parent, false))
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_layout, parent, false))
     }
 
     var parsedName: String? = null
+    var firstMatchDate = true
+    var currentMatchDate: String? = null
 
     override fun getItemCount(): Int {
 
@@ -31,8 +33,15 @@ class MatchAdapter(val matchList: MatchList?, val context: Context): RecyclerVie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentMatch = matchList!!.matches[position]
 
-        val home = currentMatch.homeTeam?.name
-        val away = currentMatch.awayTeam?.name
+        //should we display the matchday
+
+        //get view matchDay
+        val viewMatchDay = currentMatch.matchday
+        Log.d("matchday", currentMatch.matchday.toString())
+
+
+
+
 
 
         //convert UTC time to local time
@@ -42,6 +51,36 @@ class MatchAdapter(val matchList: MatchList?, val context: Context): RecyclerVie
         holder.viewDate?.text = matchDate
 
 
+        if (firstMatchDate){
+            currentMatchDate = matchDate
+            firstMatchDate = false
+        }
+
+        var previousDate = matchList.matches[position-1].utcDate.toString()
+        previousDate = previousDate.substring(0, 10)
+
+
+
+        Log.d("Date", "Previous Date: $previousDate" )
+        Log.d("Date", "Current Date: $matchDate" )
+
+
+        if (matchDate != previousDate) {
+            val dayString = "Matchday $viewMatchDay"
+            holder.viewMatchDay.text = dayString
+            holder.viewMatchDay.visibility = View.VISIBLE
+
+            holder.viewDate.text = matchDate
+            holder.viewDate.visibility = View.VISIBLE
+            currentMatchDate = matchDate
+        } else {
+            holder.viewDate.visibility = View.GONE
+
+        }
+
+
+        val home = currentMatch.homeTeam?.name
+        val away = currentMatch.awayTeam?.name
         //Find logos for the corresponding teams
         holder.viewLogo1.setImageResource(getTeamLogo(home.toString()))
         val homeString = "$parsedName  vs.  "
@@ -175,6 +214,9 @@ class MatchAdapter(val matchList: MatchList?, val context: Context): RecyclerVie
     }
 
 
+
+
+
 }
 
 
@@ -187,5 +229,6 @@ class ViewHolder(view: View): RecyclerView.ViewHolder(view){
     var viewDate = view.match_date
     var viewScore = view.match_score
     var viewPlay = view.in_play
+    var viewMatchDay = view.matchday
 }
 
