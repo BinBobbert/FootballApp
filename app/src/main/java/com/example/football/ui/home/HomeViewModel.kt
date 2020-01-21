@@ -23,19 +23,31 @@ class HomeViewModel (
     private val matchesRepository: MatchesRepository
 ): ViewModel(){
     private val _currentMatches = MutableLiveData<List<Matche>>()
+    private var compCode = "DED"
 
     val currentMatches: LiveData<List<Matche>>
         get() = _currentMatches
 
     init {
         viewModelScope.launch {
-            val matches = matchesRepository.getMatches()
+            val matches = matchesRepository.getMatches(compCode)
             _currentMatches.postValue(matches)
         }
 
     }
 
+    fun changeComp(code: String){
+        compCode = code
 
+        viewModelScope.launch {
+            val matches = matchesRepository.getMatches(compCode)
+            _currentMatches.postValue(matches)
+        }
+    }
+
+    fun getCompCode(): String{
+        return compCode
+    }
 
 
 }

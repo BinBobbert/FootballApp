@@ -4,6 +4,9 @@ package com.example.football.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,7 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("Football")
+        getSupportActionBar()!!.setDisplayShowTitleEnabled(true)
+        toolbar.title = "FootballLyf"
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 }
 

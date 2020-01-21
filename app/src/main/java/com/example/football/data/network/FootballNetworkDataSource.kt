@@ -9,8 +9,6 @@ interface FootballNetworkDataSource {
     val downloadedMatches : LiveData<CompData>
 
     suspend fun fetchMatches(
-        code: String,
-        startDate: String,
-        endDate: String
+        code: String
     )
 }

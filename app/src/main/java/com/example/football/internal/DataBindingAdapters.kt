@@ -23,6 +23,26 @@ fun getLocalTime(utcDate: String): String{
     return date.toString().substring(11, 16)
 }
 
+fun getDateFormat(utcDate: String): String{
+    Log.d(" chris", utcDate)
+
+    when(utcDate.substring(5,7)){
+        "01" -> return "Januari ${utcDate.substring(8, 10)}"
+        "02" -> return "Februari ${utcDate.substring(8, 10)}"
+        "03" -> return "March ${utcDate.substring(8, 10)}"
+        "04" -> return "April ${utcDate.substring(8, 10)}"
+        "05" -> return "Mei ${utcDate.substring(8, 10)}"
+        "06" -> return "June ${utcDate.substring(8, 10)}"
+        "07" -> return "Juli ${utcDate.substring(8, 10)}"
+        "08" -> return "August ${utcDate.substring(8, 10)}"
+        "09" -> return "September ${utcDate.substring(8, 10)}"
+        "10" -> return "Oktober ${utcDate.substring(8, 10)}"
+        "11" -> return "November ${utcDate.substring(8, 10)}"
+        "12" -> return "December ${utcDate.substring(8, 10)}"
+        else -> return "null"
+    }
+}
+
 fun parseEreTeams(team: String): Int{
     when (team){
         "AFC Ajax" -> {
@@ -78,6 +98,132 @@ fun parseEreTeams(team: String): Int{
         }
         "AZ" -> {
             return R.drawable.az
+        }
+        "Norwich City FC" -> {
+            return R.drawable.norwich
+        }
+        "Liverpool FC" -> {
+            return R.drawable.liverpool
+        }
+        "Manchester City FC" -> {
+            return R.drawable.mancity
+        }
+        "West Ham United FC" -> {
+            return R.drawable.westham
+        }
+        "Leicester City FC" -> {
+            return R.drawable.leicester
+        }
+        "Southampton FC" -> {
+            return R.drawable.southampton
+        }
+        "Burnley FC" -> {
+            return R.drawable.burnley
+        }
+        "Everton FC" -> {
+            return R.drawable.everton
+        }
+        "Crystal Palace FC" -> {
+            return R.drawable.crystal
+        }
+        "Brighton & Hove Albion FC" -> {
+            return R.drawable.brighton
+        }
+        "Watford FC" -> {
+            return R.drawable.watford
+        }
+        "Chelsea FC" -> {
+            return R.drawable.chelsea
+        }
+        "Wolverhampton Wanderers FC" -> {
+            return R.drawable.wolverhampton
+        }
+        "Sheffield United FC" -> {
+            return R.drawable.sheffield
+        }
+        "Arsenal FC" -> {
+            return R.drawable.arsenal
+        }
+        "Manchester United FC" -> {
+            return R.drawable.manchester
+        }
+        "Tottenham Hotspur FC" -> {
+            return R.drawable.tottenham
+        }
+        "AFC Bournemouth" -> {
+            return R.drawable.bournemouth
+        }
+        "Newcastle United FC" -> {
+            return R.drawable.newcastle
+        }
+        "Aston Villa FC" -> {
+            return R.drawable.aston
+        }
+        else -> return R.drawable.ic_launcher_background
+    }
+}
+
+fun parsePLTeams(team: String): Int {
+    when (team) {
+        "Norwich City FC" -> {
+            return R.drawable.norwich
+        }
+        "Liverpool FC" -> {
+            return R.drawable.liverpool
+        }
+        "Manchester City FC" -> {
+            return R.drawable.mancity
+        }
+        "West Ham United FC" -> {
+            return R.drawable.westham
+        }
+        "Leicester City FC" -> {
+            return R.drawable.leicester
+        }
+        "Southampton FC" -> {
+            return R.drawable.southampton
+        }
+        "Burnley FC" -> {
+            return R.drawable.burnley
+        }
+        "Everton FC" -> {
+            return R.drawable.everton
+        }
+        "Crystal Palace FC" -> {
+            return R.drawable.crystal
+        }
+        "Brighton & Hove Albion FC" -> {
+            return R.drawable.brighton
+        }
+        "Watford FC" -> {
+            return R.drawable.watford
+        }
+        "Chelsea FC" -> {
+            return R.drawable.chelsea
+        }
+        "Wolverhampton Wanderers FC" -> {
+            return R.drawable.wolverhampton
+        }
+        "Sheffield United FC" -> {
+            return R.drawable.sheffield
+        }
+        "Arsenal FC" -> {
+            return R.drawable.arsenal
+        }
+        "Manchester United FC" -> {
+            return R.drawable.manchester
+        }
+        "Tottenham Hotspur FC" -> {
+            return R.drawable.tottenham
+        }
+        "AFC Bournemouth" -> {
+            return R.drawable.bournemouth
+        }
+        "Newcastle United FC" -> {
+            return R.drawable.newcastle
+        }
+        "Aston Villa FC" -> {
+            return R.drawable.aston
         }
         else -> return R.drawable.ic_launcher_background
     }

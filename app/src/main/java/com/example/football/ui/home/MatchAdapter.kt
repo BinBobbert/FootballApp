@@ -11,14 +11,22 @@ import com.example.football.R
 import com.example.football.data.network.response.CompData
 import com.example.football.data.matchData.gsonData.Matche
 import com.example.football.databinding.MatchThemeBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MatchAdapter(val matchList: List<Matche>) : RecyclerView.Adapter<MatchAdapter.MatchViewHolder>() {
 
     inner class MatchViewHolder(val binding: MatchThemeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(match: Matche){
-            binding.matchTheme = match
-            binding.executePendingBindings()
+        val header = binding.group
+
+        fun isHeader(pos: Int): Boolean{
+
+            if(matchList[pos].utcDate!!.substring(8,10) != matchList[pos-1].utcDate!!.substring(8,10)){
+                return true
+            }
+
+            return false
         }
     }
 
@@ -34,12 +42,6 @@ class MatchAdapter(val matchList: List<Matche>) : RecyclerView.Adapter<MatchAdap
 
         )
 
-    // only works for eredivisie right now
-    fun scrollToCurrent(): Int{
-        val currentMatchDay: Int = matchList[0].season!!.currentMatchday!!
-
-        return  currentMatchDay * 9
-    }
 
     override fun getItemCount(): Int {
         return matchList.size
@@ -49,7 +51,15 @@ class MatchAdapter(val matchList: List<Matche>) : RecyclerView.Adapter<MatchAdap
 
         holder.binding.matchTheme = matchList[position]
 
+        if(holder.isHeader(position)){
+            holder.header.visibility = View.VISIBLE
+        } else {
+            holder.header.visibility = View.GONE
+        }
+
     }
+
+
 
 
 }

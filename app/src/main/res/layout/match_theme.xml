@@ -21,13 +21,20 @@
         android:layout_height="wrap_content"
         android:background="#cacaca">
 
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/group"
+            app:constraint_referenced_ids="match_date,match_day"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/match_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:text="@{matchTheme.utcDate.substring(0, 10)}"
+            android:text="@{DataBindingAdaptersKt.getDateFormat(matchTheme.utcDate)}"
             android:hint="02-12-1997"
             android:textColor="#000"
             android:textSize="20sp"

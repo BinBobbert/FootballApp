@@ -17,14 +17,13 @@ class FootballNetworkDataSourceImpl(
     override val downloadedMatches: LiveData<CompData>
         get() = _downloadedMatches
 
-    override suspend fun fetchMatches(code: String, startDate: String, endDate: String) {
+    override suspend fun fetchMatches(code: String) {
         try{
 
             val fetchedMatches:CompData = footballApi
-                .getMatches(code, startDate, endDate)
+                .getMatches(code)
             _downloadedMatches.postValue(fetchedMatches)
 
-            Log.d("chris", "downloadedMatches 1: " + _downloadedMatches.value.toString())
 
         }
         catch (e: NoConnectivityException){

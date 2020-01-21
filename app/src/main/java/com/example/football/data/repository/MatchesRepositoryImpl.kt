@@ -27,11 +27,11 @@ class MatchesRepositoryImpl(
 
     }
 
-    override suspend fun getMatches(): List<Matche>{
+    override suspend fun getMatches(compCode: String): List<Matche>{
 
         return withContext(Dispatchers.IO){
-            initMatchesData()
-            return@withContext matchDataDao.getAllTest()
+            initMatchesData(compCode)
+            return@withContext matchDataDao.getCompMatches(compCode)
         }
     }
 
@@ -39,21 +39,20 @@ class MatchesRepositoryImpl(
 
         GlobalScope.launch(Dispatchers.IO) {
             for (x in fetchedMatches.matches){
+                x.compCode = fetchedMatches.competition!!.code
                 matchDataDao.upsert(x)
             }
         }
     }
 
-    private suspend fun initMatchesData(){
+    private suspend fun initMatchesData(compCode: String){
         if (isFetchedMatchesNeeded(ZonedDateTime.now().minusHours(1))) //Always true, for now
-            fetchMatches()
+            fetchMatches(compCode)
     }
 
-    private suspend fun fetchMatches(){
+    private suspend fun fetchMatches(compCode: String){
         footballNetworkDataSource.fetchMatches(
-            code = "DED",
-            startDate = "2019-08-02", // Get from settings later
-            endDate = "2020-05-20"
+            code = compCode// Get from settings later
         )
     }
 

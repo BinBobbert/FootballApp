@@ -17,4 +17,7 @@ interface MatchDataDao {
 
     @Query("SELECT * FROM matches")
     fun getAllTest(): List<Matche>
+
+    @Query("SELECT * FROM matches WHERE compCode = :code" )
+    fun getCompMatches(code: String) : List<Matche>
 }

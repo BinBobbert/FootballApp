@@ -22,7 +22,8 @@ data class Matche(
     @SerializedName("status")
     var status: String?,
     @SerializedName("utcDate")
-    var utcDate: String?
+    var utcDate: String?,
+    var compCode: String?
 ) {
     @PrimaryKey(autoGenerate = true)
     var keyz: Int = 1
