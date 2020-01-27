@@ -17,11 +17,16 @@ import android.widget.Toast;
 import com.example.football.ui.MainActivity;
 import com.example.football.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText mUsername, mPassword, mEmail;
@@ -43,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         progress = findViewById(R.id.register_progress);
         gotoLogin = findViewById(R.id.or_login);
         fAuth = FirebaseAuth.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
         gotoLogin.setOnClickListener(new View.OnClickListener(){
@@ -96,6 +102,23 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
 
+                            Map<String, Object> userPrefs = new HashMap<>();
+                            userPrefs.put("BL", false);
+                            userPrefs.put("PL", false);
+                            userPrefs.put("DED", false);
+                            userPrefs.put("SA", false);
+                            userPrefs.put("Username", mUsername.getText().toString());
+
+                            db.collection("gebruikers/")
+                                    .document(mUsername.getText().toString())
+                                    .set(userPrefs)
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("chris", "Error adding document", e);
+                                        }
+                                    }
+                            );
 
                             Toast.makeText(RegisterActivity.this, "User created", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));

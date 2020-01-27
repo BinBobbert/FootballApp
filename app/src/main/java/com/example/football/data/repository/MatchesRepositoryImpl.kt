@@ -18,10 +18,11 @@ class MatchesRepositoryImpl(
     private val footballNetworkDataSource: FootballNetworkDataSource
 ) : MatchesRepository {
 
+    private var buffer = ZonedDateTime.now().plusMinutes(5)
+
     init {
 
         footballNetworkDataSource.downloadedMatches.observeForever { newMatches ->
-
             persistFetchedMatches(newMatches)
         }
 
@@ -35,19 +36,44 @@ class MatchesRepositoryImpl(
         }
     }
 
+    override suspend fun getAllMatches(): List<Matche> {
+        return withContext(Dispatchers.IO){
+            initAllData()
+            return@withContext matchDataDao.getAllTest()
+        }
+    }
+
+    override suspend fun getSpecificCompMatches(compCodes: List<String>): List<Matche> {
+        return withContext(Dispatchers.IO){
+            initAllData()
+            return@withContext matchDataDao.getSpecificComps(compCodes)
+        }
+    }
+
     private fun persistFetchedMatches (fetchedMatches: CompData){
 
         GlobalScope.launch(Dispatchers.IO) {
             for (x in fetchedMatches.matches){
                 x.compCode = fetchedMatches.competition!!.code
+                x.day = x.utcDate!!.substring(8, 10).toInt()
+                x.hour = x.utcDate!!.substring(11, 13).toInt()
+                x.date = x.utcDate!!.substring(0, 10)
                 matchDataDao.upsert(x)
             }
         }
     }
 
     private suspend fun initMatchesData(compCode: String){
-        if (isFetchedMatchesNeeded(ZonedDateTime.now().minusHours(1))) //Always true, for now
+        if (isFetchedMatchesNeeded()) //Always true, for now
             fetchMatches(compCode)
+    }
+
+    private suspend fun initAllData(){
+        if (isFetchedMatchesNeeded()){
+            fetchMatches("DED")
+            fetchMatches("PL")
+            fetchMatches("SA")
+        }
     }
 
     private suspend fun fetchMatches(compCode: String){
@@ -56,9 +82,15 @@ class MatchesRepositoryImpl(
         )
     }
 
-    private fun isFetchedMatchesNeeded(lastFetched: ZonedDateTime) : Boolean {
-        val thiryMinutesAgo = ZonedDateTime.now().minusMinutes(30)
-        return lastFetched.isBefore(thiryMinutesAgo)
+    private fun isFetchedMatchesNeeded() : Boolean {
+        val timeNow = ZonedDateTime.now()
+
+        if(timeNow.minute > buffer.minute){
+            buffer = timeNow.plusMinutes(5)
+            return true
+        }
+
+        return false
     }
 
 }

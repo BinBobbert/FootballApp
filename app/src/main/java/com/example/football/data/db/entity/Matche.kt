@@ -13,6 +13,8 @@ data class Matche(
     var awayTeam: AwayTeam?,
     @Embedded(prefix = "homeTeam_")
     var homeTeam: HomeTeam?,
+    @PrimaryKey
+    val id: Int?,
     @SerializedName("matchday")
     var dayOfMatch: Int?,
     @Embedded(prefix = "score_")
@@ -23,8 +25,9 @@ data class Matche(
     var status: String?,
     @SerializedName("utcDate")
     var utcDate: String?,
-    var compCode: String?
-) {
-    @PrimaryKey(autoGenerate = true)
-    var keyz: Int = 1
-}
+    var day: Int?,
+    var hour: Int,
+    var compCode: String?,
+    var date: String
+
+)

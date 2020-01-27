@@ -24,7 +24,6 @@ fun getLocalTime(utcDate: String): String{
 }
 
 fun getDateFormat(utcDate: String): String{
-    Log.d(" chris", utcDate)
 
     when(utcDate.substring(5,7)){
         "01" -> return "Januari ${utcDate.substring(8, 10)}"
@@ -40,6 +39,15 @@ fun getDateFormat(utcDate: String): String{
         "11" -> return "November ${utcDate.substring(8, 10)}"
         "12" -> return "December ${utcDate.substring(8, 10)}"
         else -> return "null"
+    }
+}
+
+fun parseComp(code: String): String{
+    when(code){
+        "PL" -> return "Premier League"
+        "DED" -> return "Eredivisie"
+        "SA" -> return "Serie A"
+        else -> return "Competition Name"
     }
 }
 

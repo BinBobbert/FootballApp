@@ -8,7 +8,7 @@ import com.example.football.data.matchData.gsonData.Matche
 
 @Database(
     entities = [Matche::class],
-    version = 7
+    version = 12
 )
 abstract class MatchDatabase : RoomDatabase(){
     abstract fun currentMatchDao(): MatchDataDao

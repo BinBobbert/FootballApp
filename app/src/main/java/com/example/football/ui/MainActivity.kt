@@ -16,7 +16,10 @@ import com.example.football.R
 import com.example.football.ui.login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.view.*
 
 
 // First activity, pick which competition you want to see.
@@ -27,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        getSupportActionBar()!!.setDisplayShowTitleEnabled(true)
-        toolbar.title = "FootballLyf"
+
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -39,12 +40,13 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_dashboard,
+                R.id.navigation_favourites,
                 R.id.navigation_notifications
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
 
         logout.setOnClickListener {
             fAuth.signOut()

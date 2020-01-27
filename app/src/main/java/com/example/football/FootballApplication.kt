@@ -5,7 +5,9 @@ import com.example.football.data.db.MatchDatabase
 import com.example.football.data.network.*
 import com.example.football.data.repository.MatchesRepository
 import com.example.football.data.repository.MatchesRepositoryImpl
-import com.example.football.ui.home.HomeViewModelFactory
+import com.example.football.ui.base.ViewModelFactory
+import com.example.football.ui.favourites.FavouritesViewModelFactory
+import com.example.football.ui.favourites.add_favourites.AddFavouritesActivity
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -25,7 +27,12 @@ class FootballApplication: Application(), KodeinAware{
         bind() from singleton { FootballApi(instance())}
         bind<FootballNetworkDataSource>() with singleton {FootballNetworkDataSourceImpl(instance())}
         bind<MatchesRepository>() with singleton {MatchesRepositoryImpl(instance(), instance())}
-        bind() from provider { HomeViewModelFactory(instance())}
+        bind() from provider {
+            ViewModelFactory(
+                instance()
+            )
+        }
+        bind() from provider { FavouritesViewModelFactory(instance()) }
 
     }
 
