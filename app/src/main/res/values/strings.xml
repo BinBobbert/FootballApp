@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">NameGame</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_bar">Football Lyf</string>
+    <string name="pl">Premier League</string>
+    <string name="ded">Eredivisie</string>
+    <string name="sa">Serie A</string>
+    <string name="title_activity_add_favourites">AddFavouritesActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

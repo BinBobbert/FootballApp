@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="com.example.football.internal.DataBindingAdaptersKt" />
+        <variable
+            name="matchTheme"
+            type="com.example.football.data.matchData.gsonData.Matche"
+            />
+        <variable
+            name="homeViewModel"
+            type="com.example.football.ui.home.HomeViewModel" />
+
+    </data>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorThree"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        >
+
+        <TextView
+            android:id="@+id/match_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/colorSecondary"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@{DataBindingAdaptersKt.getDateFormat(matchTheme.utcDate)}"
+            android:hint="Date"
+            android:textAlignment="center"
+            android:textColor="@color/colorFour"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@id/match_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/competition_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="competition"
+            android:hint="Competition"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/match_date"
+            android:layout_marginStart="4dp"/>
+
+        <TextView
+            android:id="@+id/match_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Matchday 1"
+            android:text='@{"Matchday: " + String.valueOf(matchTheme.dayOfMatch)}'
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="0dp"
+            android:elevation="8dp"
+            android:layout_marginTop="4dp"
+            app:strokeColor="@color/colorSecondary"
+            app:strokeWidth="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/competition_name">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFour"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/match_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:hint="Afc Ajax"
+                    android:text="@{matchTheme.homeTeam.name}"
+                    android:textColor="#000"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/home_logo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/match_team2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Heracles Almelo"
+                    android:text="@{matchTheme.awayTeam.name}"
+                    android:textColor="#000"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/away_logo"
+                    app:layout_constraintTop_toBottomOf="@+id/match_team" />
+
+                <TextView
+                    android:id="@+id/match_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="64dp"
+                    android:hint="11:30"
+                    android:text="@{DataBindingAdaptersKt.getLocalTime(matchTheme.utcDate)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="19sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/match_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="#ececec"
+                    android:hint="1 v 1"
+                    android:padding="4dp"
+                    android:text='@{matchTheme.score.fullTime.homeTeamScore + " - " + matchTheme.score.fullTime.awayTeamScore}'
+                    android:textColor="#000"
+                    android:textSize="19sp"
+                    android:visibility='@{matchTheme.status.equals("SCHEDULED") ? View.INVISIBLE : View.VISIBLE}'
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/home_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+
+                    android:src="@{DataBindingAdaptersKt.parseEreTeams(matchTheme.homeTeam.name)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/away_logo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@{DataBindingAdaptersKt.parseEreTeams(matchTheme.awayTeam.name)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_logo" />
+
+                <ImageView
+                    android:id="@+id/in_play"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility='@{matchTheme.status.equals("IN_PLAY") ? View.VISIBLE : View.INVISIBLE}'
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/match_time"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/red_circle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
